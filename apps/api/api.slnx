@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Moneo.Api/Moneo.Api.csproj"/>
+  <Project Path="Moneo.UnitTests/Moneo.UnitTests.csproj"/>
+  <Project Path="Moneo.IntegrationTests/Moneo.IntegrationTests.csproj"/>
+</Solution>
