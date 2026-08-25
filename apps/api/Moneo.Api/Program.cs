@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Moneo.Api.Database;
 using Scalar.AspNetCore;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -16,11 +18,23 @@ var allowedOrigin = builder.Configuration["AllowedOrigin"]
 
 builder.Services.AddCors(options => options.AddPolicy(MyAllowSpecificOrigins, policy => policy.WithOrigins(allowedOrigin)));
 builder.Services.AddHealthChecks();
+builder.Services.AddDbContext<MoneoDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
 
 app.MapGet("/hello", () => "Hello World!");
+
+app.MapGet("/health/db", async (MoneoDbContext db) =>
+{
+    var connected = await db.Database.CanConnectAsync();
+
+    return connected
+        ? Results.Ok("Database connected")
+        : Results.StatusCode(503);
+});
 
 
 

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: moneo-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: moneo
+      POSTGRES_PASSWORD: moneo_dev
+      POSTGRES_DB: moneo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
