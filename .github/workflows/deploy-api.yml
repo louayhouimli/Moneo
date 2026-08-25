@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apps/api/**"
+      - ".github/workflows/deploy-api.yml"
+
   workflow_dispatch:
 
 permissions:
@@ -34,6 +38,9 @@ jobs:
 
       - name: Unit tests
         run: dotnet test apps/api/Moneo.UnitTests/Moneo.UnitTests.csproj --configuration Release --no-build
+
+      - name: Integration tests
+        run: dotnet test apps/api/Moneo.IntegrationTests/Moneo.IntegrationTests.csproj --configuration Release --no-build
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
