@@ -11,7 +11,5 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.33.4",
-  "dependencies": {
-    "@tanstack/devtools-vite": "^0.8.5"
-  }
+  "dependencies": {}
 }
