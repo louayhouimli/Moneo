@@ -11,8 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 
-builder.Services.AddCors(options => options.AddPolicy(name: MyAllowSpecificOrigins, policy => policy.WithOrigins("http://localhost:5173")));
+var allowedOrigin = builder.Configuration["AllowedOrigin"]
+    ?? throw new InvalidOperationException("AllowedOrigin is not configured");
 
+builder.Services.AddCors(options => options.AddPolicy(MyAllowSpecificOrigins, policy => policy.WithOrigins(allowedOrigin)));
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();

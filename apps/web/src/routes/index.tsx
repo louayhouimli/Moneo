@@ -10,7 +10,7 @@ function RouteComponent() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["health"],
     queryFn: async (): Promise<string> => {
-      return fetch("http://localhost:5050/health").then((res) => {
+      return fetch(`${import.meta.env.VITE_API_URL}/health`).then((res) => {
         if (!res.ok) throw new Error("failed to fetch health")
         return res.text()
       })
